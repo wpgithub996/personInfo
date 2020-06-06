@@ -1,0 +1,30 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: client01
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///personinfo
+    username: root
+    password: root
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://39.100.152.128:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+#      分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  pageSizeZero: false #pageSize=0
+

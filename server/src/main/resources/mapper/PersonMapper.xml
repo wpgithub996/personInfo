@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.server.mapper.PersonMapper">
+<!--    新增-->
+    <insert id="savePerson" >
+        insert into personInfo values(#{name},#{age},#{phone},#{city},#{address},#{gender},null,#{idCard},#{isOut},#{isHost},#{hostNum});
+    </insert>
+<!--    修改-->
+    <update id="updateInfo">
+        update personInfo set name=#{name},age=#{age},phone=#{phone},address=#{address},idCard=#{idCard} where idNum=#{idNum}
+    </update>
+<!--    根据ID删除-->
+    <delete id="deleteByIdNum">
+        delete from personInfo where IdNum=#{IdNum}
+    </delete>
+<!--    查询-->
+    <select id="find"  resultType="com.wang.server.pojo.PersonInfo">
+        select * from personInfo where 1=1
+
+        <if test="name!=null and name!=''">
+            and name like "%"#{name}"%"
+        </if>
+        <if test="age!=null and age!=''">
+            and age>#{age}
+        </if>
+        <if test="phone!=null and phone!=''">
+            and phone like "%"#{phone}"%"
+        </if>
+        <if test="idCard!=null and idCard!=''">
+            and idCard like "%"#{idCard}"%"
+        </if>
+        <if test="isOut!=null and isOut!='' and isOut!='null'">
+            and isOut=#{isOut}
+        </if>
+        <if test="isHost!=null and isHost!=''">
+            and isOut=#{isOut}
+        </if>
+    </select>
+
+    <select id="boyNum" resultType="Integer">
+        select count(1) from personInfo where gender='男'
+    </select>
+    <select id="girlNum" resultType="Integer">
+        select count(1) from personInfo where gender='女'
+    </select>
+
+    <select id="isOut" resultType="Integer">
+        select count(1) from personInfo where isOut=#{flag}
+    </select>
+</mapper>

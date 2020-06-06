@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: personInfoServer
+    #数据库连接信息
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.100.152.128:3306/personinfo
+    username: root
+    password: wp199623.
+mybatis:
+  type-aliases-package: com.wang.pojo
+  mapper-locations: classpath:mapper/*Mapper.xml
+#  打印数据库操作SQL
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://39.100.152.128:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+logging:
+  level.com.wang.mapper: debug
